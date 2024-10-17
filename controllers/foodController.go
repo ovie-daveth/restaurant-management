@@ -42,12 +42,12 @@ func GetFood() gin.HandlerFunc {
 		// Extract food ID from the URL parameters
 		foodID := c.Param("id")
 
-		// // Convert the food ID string to a MongoDB ObjectID
-		// objID, err := primitive.ObjectIDFromHex(foodID)
-		// if err != nil {
-		// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
-		// 	return
-		// }
+		// Convert the food ID string to a MongoDB ObjectID
+		objID, err := primitive.ObjectIDFromHex(foodID)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+			return
+		}
 
 		// Create a context with a timeout for the MongoDB operation
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -55,10 +55,9 @@ func GetFood() gin.HandlerFunc {
 
 		// Define a variable to hold the result
 		var food models.Food
-		var err error
 
 		// Query the database for a document with the given ObjectID
-		err = foodCollection.FindOne(ctx, bson.M{"_id": foodID}).Decode(&food)
+		err = foodCollection.FindOne(ctx, bson.M{"_id": objID}).Decode(&food)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Food item not found"})
 			return
