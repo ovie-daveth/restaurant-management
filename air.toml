@@ -1,0 +1,49 @@
+# Configurations for air
+root = "." # The root directory for your project
+
+# The path where the Go source files are located
+include_dir = [
+    "controllers",
+    "middlewares",
+    "models",
+    "routes",
+    "utils",
+    "docs"
+]
+
+# Exclude directories that should not be watched
+exclude_dir = [
+    "vendor",
+    "node_modules",
+    ".git"
+]
+
+# The command to run your application
+[[program]]
+  cmd = "go run main.go" # Change this to your main Go file or any command you need
+  # Arguments to pass to the command
+  # args = ["arg1", "arg2"]
+
+# Set the log level for output
+log_level = "info"
+
+# Watch for changes and rebuild
+watch_dir = [
+    "."
+]
+
+# Enable to automatically rebuild on changes
+run_on_change = true
+
+# Watch file extensions
+watch_ext = [
+    "go",
+    "toml",
+    "env" # Add any other extensions you want to watch
+]
+
+# Enable color output in the terminal
+color = true
+
+# The number of seconds to wait after the last change before rebuilding
+delay = 1000

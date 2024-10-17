@@ -1,0 +1,58 @@
+definitions:
+  controllers.Response:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Food:
+    properties:
+      created_at:
+        type: string
+      food_id:
+        type: string
+      food_image:
+        type: string
+      id:
+        type: string
+      menu_id:
+        type: string
+      name:
+        maxLength: 100
+        minLength: 2
+        type: string
+      price:
+        type: number
+      updated_at:
+        type: string
+    required:
+    - food_image
+    - menu_id
+    - name
+    - price
+    type: object
+info:
+  contact: {}
+paths:
+  /create-food:
+    post:
+      consumes:
+      - application/json
+      description: Create a new food item in the system
+      parameters:
+      - description: Food item
+        in: body
+        name: food
+        required: true
+        schema:
+          $ref: '#/definitions/models.Food'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Response'
+      summary: Create a new food item
+      tags:
+      - food
+swagger: "2.0"
